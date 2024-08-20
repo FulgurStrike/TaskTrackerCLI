@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea/
+TaskList.json
 
 ### Eclipse ###
 .apt_generated
