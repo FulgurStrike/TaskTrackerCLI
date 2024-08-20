@@ -47,9 +47,9 @@ public class Main {
                     for(int i=1; i<arguments.length; i++) {
                         description.append(arguments[i] + " ");
                     }
+
                     try {
-                        Add.add(description.toString().trim(), count);
-                        System.out.printf("Task added successfully (ID: %d)", count);
+                        Add.add(description.toString().trim());
                     }catch (Exception e) {
                         System.out.println("Error try again!");
                     }

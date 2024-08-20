@@ -3,40 +3,24 @@ package add;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Add {
 
-    private static JSONArray readFile(String fileName) {
-        Object obj = null;
-        JSONArray jsonArray = null;
+    public static void add(String input) throws Exception {
 
-        try {
-            obj = new JSONParser().parse(new FileReader(fileName));
-            JSONObject jsonObject = (JSONObject) obj;
-            jsonArray = new JSONArray();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        return jsonArray;
-    }
-
-    public static void add(String input, int id) throws Exception {
+        JSONParser parser = new JSONParser();
+        JSONObject taskListObj = (JSONObject)  parser.parse(new FileReader("TaskList.json"));
+        JSONArray taskList = (JSONArray) taskListObj.get("taskList");
+        int nextID = taskList.size() + 1;
 
         JSONObject taskData = new JSONObject();
 
         if(!input.equals("")) {
-            taskData.put("id", id);
+            taskData.put("id", nextID);
             taskData.put("description", input);
             taskData.put("status", "to-do");
             taskData.put("createdAt", LocalDate.now().toString() + " " + LocalTime.now().toString());
@@ -45,8 +29,12 @@ public class Add {
             throw new Exception();
         }
 
-//        FileWriter writer = new FileWriter("TaskList.json", true);
-//        writer.write(taskData.toJSONString());
-//        writer.close();
+        taskList.add(taskData);
+
+        FileWriter fileWriter = new FileWriter("TaskList.json");
+        fileWriter.write(taskListObj.toJSONString());
+        fileWriter.close();
+
+        System.out.printf("Task added successfully (ID: %d)", nextID);;
     }
 }
