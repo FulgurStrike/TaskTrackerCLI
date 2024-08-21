@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Add {
 
@@ -19,12 +19,16 @@ public class Add {
 
         JSONObject taskData = new JSONObject();
 
+        LocalDateTime unformattedDate = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+
         if(!input.equals("")) {
             taskData.put("id", nextID);
             taskData.put("description", input);
             taskData.put("status", "to-do");
-            taskData.put("createdAt", LocalDate.now().toString() + " " + LocalTime.now().toString());
-            taskData.put("updatedAt", LocalDate.now().toString() + " " + LocalTime.now().toString());
+            taskData.put("createdAt", unformattedDate.format(formatter));
+            taskData.put("updatedAt", unformattedDate.format(formatter));
         }else {
             throw new Exception();
         }
