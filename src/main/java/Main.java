@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import add.Add;
+import list.List;
+import mark.Mark;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -63,8 +65,20 @@ public class Main {
                     System.out.println(Arrays.toString(arguments));
                     break;
                 case "list":
-                    System.out.println(Arrays.toString(arguments));
+                    if(arguments.length == 1){
+                        System.out.println(List.listAll());
+                    }else if(arguments[1].equals("done")) {
+                        System.out.println(List.listDone());
+                    }else if(arguments[1].equals("in-progress")) {
+
+                    }
+
                     break;
+                case "mark-in-progress":
+                    Mark.mark(Long.parseLong(arguments[1]), "in-progress");
+                    break;
+                case "mark-done":
+                    Mark.mark(Long.parseLong(arguments[1]), "done");
             }
 
             System.out.print("\ntask-cli ");
