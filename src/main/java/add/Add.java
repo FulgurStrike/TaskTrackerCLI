@@ -1,3 +1,7 @@
+/*
+* Author: FulgurStrike
+* Description: Class to add a task to the TaskList file
+*/
 package add;
 
 import main.jsoncontroller.JSONController;
@@ -10,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 public class Add {
 
     public static void add(String input) {
-
 
         JSONObject taskListObject = JSONController.createJSONObject();
         JSONArray taskListArray = JSONController.createJSONArray(taskListObject);
@@ -33,7 +36,6 @@ public class Add {
         }
         taskListArray.add(taskData);
 
-        FileWriter fileWriter = null;
         JSONController.writeJSONFile(taskListObject);
 
 

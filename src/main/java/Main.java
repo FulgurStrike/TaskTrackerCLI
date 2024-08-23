@@ -1,18 +1,17 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
+/*
+ * Author: FulgurStrike
+ * Description: Class that controls user input.
+ */
+
 import java.util.Scanner;
 import add.Add;
 import list.List;
 import main.jsoncontroller.JSONController;
 import mark.Mark;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import update.Update;
+import delete.Delete;
 
 public class Main {
-
-
 
     public static void main(String[] args) {
 
@@ -26,10 +25,11 @@ public class Main {
 
         int count = 1;
         while(!command.equals("exit")){
+            StringBuilder description = new StringBuilder();
 
             switch (command){
                 case "add":
-                    StringBuilder description = new StringBuilder();
+
                     for(int i=1; i<arguments.length; i++) {
                         description.append(arguments[i] + " ");
                     }
@@ -37,10 +37,14 @@ public class Main {
                     count++;
                     break;
                 case "update":
-                    System.out.println(Arrays.toString(arguments));
+                    description = new StringBuilder();
+                    for(int i=2; i<arguments.length; i++) {
+                        description.append(arguments[i] + " ");
+                    }
+                    Update.update(Long.parseLong(arguments[1]), description.toString());
                     break;
                 case "delete":
-                    System.out.println(Arrays.toString(arguments));
+                    Delete.delete(Long.parseLong(arguments[1]));
                     break;
                 case "list":
                     if(arguments.length == 1){
@@ -59,7 +63,7 @@ public class Main {
                 case "mark-done":
                     Mark.mark(Long.parseLong(arguments[1]), "done");
             }
-            System.out.print("\ntask-cli ");
+            System.out.print("task-cli ");
             input = userInputScanner.nextLine();
             arguments =  input.split(" ");
             command = arguments[0];

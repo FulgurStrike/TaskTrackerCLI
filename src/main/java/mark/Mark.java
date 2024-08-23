@@ -1,3 +1,8 @@
+/*
+ * Author: FulgurStrike
+ * Description: Class that allows the user to mark tasks as done, to do or in progress.
+ */
+
 package mark;
 
 import main.jsoncontroller.JSONController;
@@ -28,6 +33,7 @@ public class Mark {
                 taskListArray.set(i, task);
                 taskListObject.put("taskList", taskListArray);
                 JSONController.writeJSONFile(taskListObject);
+                break;
             }
         }
     }

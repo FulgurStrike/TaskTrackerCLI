@@ -1,3 +1,8 @@
+/*
+* Author: FulgurStrike
+* Description: Class that controls the JSON data within the TaskList file
+*/
+
 package main.jsoncontroller;
 
 import org.json.simple.JSONArray;

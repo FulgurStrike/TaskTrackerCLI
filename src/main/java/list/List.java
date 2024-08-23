@@ -1,10 +1,13 @@
+/*
+ * Author: FulgurStrike
+ * Description: Class that allows users to either list all tasks or filter by status.
+ */
+
 package list;
 
 import main.jsoncontroller.JSONController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.io.FileReader;
 
 public class List {
 
@@ -15,7 +18,7 @@ public class List {
         displayString.append("Description: " + taskData.get("description") + "\n");
         displayString.append("Status: " + taskData.get("status") + "\n");
         displayString.append("Created at: " + taskData.get("createdAt") + "\n");
-        displayString.append("UpdatedAt: " + taskData.get("updatedAt") + "\n\n");
+        displayString.append("UpdatedAt: " + taskData.get("updatedAt") + "\n");
 
         return displayString.toString();
     }
