@@ -3,7 +3,7 @@
 * Description: Class that controls the JSON data within the TaskList file
 */
 
-package main.jsoncontroller;
+package jsoncontroller;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

@@ -5,7 +5,7 @@
 
 package update;
 
-import main.jsoncontroller.JSONController;
+import jsoncontroller.JSONController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

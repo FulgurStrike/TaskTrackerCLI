@@ -6,7 +6,7 @@
 import java.util.Scanner;
 import add.Add;
 import list.List;
-import main.jsoncontroller.JSONController;
+import jsoncontroller.JSONController;
 import mark.Mark;
 import update.Update;
 import delete.Delete;

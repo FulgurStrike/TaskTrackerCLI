@@ -4,10 +4,10 @@
 */
 package add;
 
-import main.jsoncontroller.JSONController;
+import jsoncontroller.JSONController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.io.FileWriter;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -39,6 +39,6 @@ public class Add {
         JSONController.writeJSONFile(taskListObject);
 
 
-        System.out.printf("Task added successfully (ID: %d)", nextID);;
+        System.out.printf("Task added successfully (ID: %d)\n", nextID);;
     }
 }
