@@ -5,34 +5,18 @@ import java.util.Arrays;
 import java.util.Scanner;
 import add.Add;
 import list.List;
+import main.jsoncontroller.JSONController;
 import mark.Mark;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Main {
 
-    private static void createJSONFile() {
-        try {
-            File TaskListFile = new File("TaskList.json");
-            if (!TaskListFile.exists()) {
-                TaskListFile.createNewFile();
 
-                JSONObject taskList = new JSONObject();
-                JSONArray taskListStart = new JSONArray();
-                taskList.put("taskList", taskListStart);
-
-                FileWriter fw = new FileWriter(TaskListFile);
-                fw.write(taskList.toJSONString());
-                fw.close();
-            }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) {
 
-        createJSONFile();
+        JSONController.createJSONFile();
 
         Scanner userInputScanner = new Scanner(System.in);
         System.out.print("task-cli ");
@@ -49,13 +33,7 @@ public class Main {
                     for(int i=1; i<arguments.length; i++) {
                         description.append(arguments[i] + " ");
                     }
-
-                    try {
-                        Add.add(description.toString().trim());
-                    }catch (Exception e) {
-                        System.out.println("Error try again!");
-                    }
-
+                    Add.add(description.toString().trim());
                     count++;
                     break;
                 case "update":
@@ -68,11 +46,12 @@ public class Main {
                     if(arguments.length == 1){
                         System.out.println(List.listAll());
                     }else if(arguments[1].equals("done")) {
-                        System.out.println(List.listDone());
+                        System.out.println(List.listSpecificStatus("done"));
                     }else if(arguments[1].equals("in-progress")) {
-
+                        System.out.println(List.listSpecificStatus("in-progress"));
+                    }else if(arguments[1].equals("todo")) {
+                        System.out.println(List.listSpecificStatus("to-do"));
                     }
-
                     break;
                 case "mark-in-progress":
                     Mark.mark(Long.parseLong(arguments[1]), "in-progress");
@@ -80,13 +59,10 @@ public class Main {
                 case "mark-done":
                     Mark.mark(Long.parseLong(arguments[1]), "done");
             }
-
             System.out.print("\ntask-cli ");
             input = userInputScanner.nextLine();
             arguments =  input.split(" ");
             command = arguments[0];
         }
-
-
     }
 }

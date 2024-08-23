@@ -1,44 +1,33 @@
 package mark;
 
+import main.jsoncontroller.JSONController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Mark {
 
     public static void mark(Long id, String status) {
 
-        JSONParser parser = new JSONParser();
-        JSONObject taskListObj;
-        try {
-            taskListObj = (JSONObject)  parser.parse(new FileReader("TaskList.json"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        JSONArray taskList = (JSONArray) taskListObj.get("taskList");
+        JSONObject taskListObject = JSONController.createJSONObject();
+        JSONArray taskListArray = JSONController.createJSONArray(taskListObject);
 
-        for(int i=0; i<taskList.size(); i++) {
-            JSONObject task = (JSONObject) taskList.get(i);
-            System.out.println(task.get("id").getClass());
+        LocalDateTime unformattedDate = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        for(int i=0; i<taskListArray.size(); i++) {
+            JSONObject task = (JSONObject) taskListArray.get(i);
             if(task.get("id").equals(id)) {
                 task.remove("status");
                 task.put("status", status);
-                taskList.set(i, task);
-                taskListObj.put("taskList", taskList);
-                try {
-                    FileWriter updateWriter = new FileWriter("TaskList.json");
-                    updateWriter.write(taskListObj.toJSONString());
-                    updateWriter.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                task.remove("updatedAt");
+                task.put("updatedAt", unformattedDate.format(formatter));
+
+                taskListArray.set(i, task);
+                taskListObject.put("taskList", taskListArray);
+                JSONController.writeJSONFile(taskListObject);
             }
         }
     }

@@ -1,22 +1,21 @@
 package add;
 
+import main.jsoncontroller.JSONController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Add {
 
-    public static void add(String input) throws Exception {
+    public static void add(String input) {
 
-        JSONParser parser = new JSONParser();
-        JSONObject taskListObj = (JSONObject)  parser.parse(new FileReader("TaskList.json"));
-        JSONArray taskList = (JSONArray) taskListObj.get("taskList");
-        int nextID = taskList.size() + 1;
 
+        JSONObject taskListObject = JSONController.createJSONObject();
+        JSONArray taskListArray = JSONController.createJSONArray(taskListObject);
+
+        int nextID = taskListArray.size() + 1;
         JSONObject taskData = new JSONObject();
 
         LocalDateTime unformattedDate = LocalDateTime.now();
@@ -30,14 +29,13 @@ public class Add {
             taskData.put("createdAt", unformattedDate.format(formatter));
             taskData.put("updatedAt", unformattedDate.format(formatter));
         }else {
-            throw new Exception();
+            System.out.println("Enter a task");
         }
+        taskListArray.add(taskData);
 
-        taskList.add(taskData);
+        FileWriter fileWriter = null;
+        JSONController.writeJSONFile(taskListObject);
 
-        FileWriter fileWriter = new FileWriter("TaskList.json");
-        fileWriter.write(taskListObj.toJSONString());
-        fileWriter.close();
 
         System.out.printf("Task added successfully (ID: %d)", nextID);;
     }
