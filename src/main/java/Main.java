@@ -11,8 +11,26 @@ import mark.Mark;
 import update.Update;
 import delete.Delete;
 
+/**
+ * Executes a task management system using user input from the console. It creates a
+ * JSON file and repeatedly prompts users for commands until they enter "exit". The
+ * system responds to various commands such as adding tasks, updating tasks, listing
+ * tasks, and marking tasks as done or in-progress.
+ */
 public class Main {
 
+    /**
+     * Executes a task management console application, reading user commands to add,
+     * update, delete tasks, and list tasks by status or all tasks. It continues to read
+     * commands until the "exit" command is entered.
+     *
+     * @param args command-line arguments passed to the program when it is executed, but
+     * it is not used in this function.
+     *
+     * Array of String objects representing command line arguments.
+     * Mainly serves as an entry point for application execution.
+     * Passed to main method when program is invoked from command line or IDE.
+     */
     public static void main(String[] args) {
 
         JSONController.createJSONFile();
